@@ -8,7 +8,7 @@ export default class PokemonType extends React.Component{
 
     render(){
         return(
-            <span class="badge badge-pill badge-info">{this.props.pokemonType}</span>
+            <span className="badge badge-pill badge-info">{this.props.pokemonType}</span>
         );
     }
 

@@ -31,8 +31,8 @@ export default class PokemonCard extends React.Component{
         // While load the data, show a loading message
         if(isLoading){
             return (
-                <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
+                <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading...</span>
                 </div>
             );
         }
@@ -42,14 +42,12 @@ export default class PokemonCard extends React.Component{
         try{
             pokemonImage = pokemon.sprites.front_default;
             imageDescription = "Front image of Pokemon named " + pokemon.name;
-            console.log("Pokemon Image: ", pokemonImage);
         }
         catch(error){
             console.log("Failed to get Pokemon image: ", error);
         }
 
         const types = pokemon.types || [];
-        console.log("Types: ", types);
 
         return (
             <div className="pokemonCard">
@@ -58,15 +56,15 @@ export default class PokemonCard extends React.Component{
                     <div className="card-body">
                         <h5 className="card-title">{pokemon.name}</h5>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Type:</strong> 
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item" key={'type-' + this.props.index}><strong>Type:</strong> 
                             {types.map(type => 
                             <PokemonType pokemonType={type.type.name}></PokemonType>
                             )}
                         </li>
-                        <li class="list-group-item"><strong>Experience:</strong> {pokemon.base_experience}</li>
-                        <li class="list-group-item"><strong>Weight:</strong> {pokemon.height}</li>
-                        <li class="list-group-item"><strong>Height:</strong> {pokemon.weight}</li>
+                        <li className="list-group-item" key={'experience-' + this.props.index}><strong>Experience:</strong> {pokemon.base_experience}</li>
+                        <li className="list-group-item" key={'weight-' + this.props.index}><strong>Weight:</strong> {pokemon.height}</li>
+                        <li className="list-group-item" key={'height-' + this.props.index}><strong>Height:</strong> {pokemon.weight}</li>
                         <a href="#" className="btn btn-primary">Open Card</a>
                     </ul>
                 </div>

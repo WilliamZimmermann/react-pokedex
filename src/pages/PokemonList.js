@@ -1,5 +1,4 @@
 import React from 'react';
-import Pagination from '../components/atoms/Pagination.js';
 import PokemonCard from '../components/molecules/PokemonCard.js';
 import { connect } from "react-redux";
 
@@ -25,9 +24,15 @@ class PokemonList extends React.Component{
      * Get all Pokemons
      */
     componentDidMount(){
+        this.getApiData("https://pokeapi.co/api/v2/pokemon");
+    }
+
+    getApiData(url){
+        // Clean the list
+        this.setState({pokemons: []});
         // Take all pokemons and paginate it
         try{
-            fetch('https://pokeapi.co/api/v2/pokemon?limit='+this.maxItemsPage)
+            fetch(url + "?limit="+this.maxItemsPage)
                 .then(response => response.json())
                 .then(data => this.setState({
                     pokemons: data.results, 
@@ -42,37 +47,44 @@ class PokemonList extends React.Component{
         }
     }
 
+    /**
+     * Go to next page
+     */
+    nextPage(){
+        this.getApiData(this.state.next);
+    }
+
+    /**
+     * Go to previous page
+     */
+    previousPage(){
+        this.getApiData(this.state.previous);
+    }
+
     render(){
         const {pokemons, next, previous, count, isLoading} = this.state;
-        
+        console.log(pokemons);
         // While load the data, show a loading message
         if(isLoading){
             return (
-                <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
+                <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading...</span>
                 </div>
             );
         }
 
         return (
             <div className="pokemonList">
-                <div class="container">
-                    <div classname="row">
+                <div className="container">
+                    <div className="row">
                         <h1>Pokémon's Library</h1>
                         <small className="text-muted">Know more about <strong>{count}</strong> Pokémons and their habits</small>
                     </div>
-                    <div className="row">
-                        <Pagination
-                            total={count}
-                            previousPage={previous}
-                            next={next}
-                            maxItemsPage={this.maxItemsPage}
-                        ></Pagination>
-                    </div>
                     <div className="row row-cols-1 row-cols-md-4">
-                        {pokemons.map(pokemon => 
-                            <div className="col mb-3">
+                        {pokemons.map((pokemon, index) => 
+                            <div className="col mb-3" key={'pokemonCard-' + index}>
                                 <PokemonCard
+                                    index={index}
                                     name={pokemon.name}
                                     pokemonApiUrl={pokemon.url}
                                 ></PokemonCard>
@@ -80,12 +92,16 @@ class PokemonList extends React.Component{
                         )}
                     </div>
                     <div className="row">
-                        <Pagination
-                            total={count}
-                            previousPage={previous}
-                            next={next}
-                            maxItemsPage={this.maxItemsPage}
-                        ></Pagination>
+                        <nav>
+                            <ul className="pagination">
+                                <li key="previousBtn" className={ previous ? 'page-item' : 'page-item disabled'}>
+                                    <button className="page-link" onClick={this.previousPage.bind(this)}>Previous</button>
+                                </li>
+                                <li key="nextBtn" className={ next ? 'page-item' : 'page-item disabled'}>
+                                    <button className="page-link" onClick={this.nextPage.bind(this)}>Next</button>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
