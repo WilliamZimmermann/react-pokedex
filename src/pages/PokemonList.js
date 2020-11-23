@@ -1,6 +1,6 @@
 import React from 'react';
 import Pagination from '../components/atoms/Pagination.js';
-import PokemonCard from '../components/atoms/PokemonCard.js';
+import PokemonCard from '../components/molecules/PokemonCard.js';
 import { connect } from "react-redux";
 
 class PokemonList extends React.Component{

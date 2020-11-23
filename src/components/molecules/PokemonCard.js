@@ -1,4 +1,5 @@
 import React from 'react';
+import PokemonType from '../atoms/PokemonType';
 
 export default class PokemonCard extends React.Component{
 
@@ -47,6 +48,9 @@ export default class PokemonCard extends React.Component{
             console.log("Failed to get Pokemon image: ", error);
         }
 
+        const types = pokemon.types || [];
+        console.log("Types: ", types);
+
         return (
             <div className="pokemonCard">
                 <div className="card">
@@ -55,10 +59,15 @@ export default class PokemonCard extends React.Component{
                         <h5 className="card-title">{pokemon.name}</h5>
                     </div>
                     <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Type:</strong> 
+                            {types.map(type => 
+                            <PokemonType pokemonType={type.type.name}></PokemonType>
+                            )}
+                        </li>
                         <li class="list-group-item"><strong>Experience:</strong> {pokemon.base_experience}</li>
                         <li class="list-group-item"><strong>Weight:</strong> {pokemon.height}</li>
                         <li class="list-group-item"><strong>Height: {pokemon.weight}</strong></li>
-                        <a href="#" className="btn btn-primary">See more</a>
+                        <a href="#" className="btn btn-primary">Open Card</a>
                     </ul>
                 </div>
             </div>
