@@ -66,7 +66,7 @@ export default class PokemonCard extends React.Component{
                         </li>
                         <li class="list-group-item"><strong>Experience:</strong> {pokemon.base_experience}</li>
                         <li class="list-group-item"><strong>Weight:</strong> {pokemon.height}</li>
-                        <li class="list-group-item"><strong>Height: {pokemon.weight}</strong></li>
+                        <li class="list-group-item"><strong>Height:</strong> {pokemon.weight}</li>
                         <a href="#" className="btn btn-primary">Open Card</a>
                     </ul>
                 </div>
