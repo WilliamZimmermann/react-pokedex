@@ -63,7 +63,6 @@ class PokemonList extends React.Component{
 
     render(){
         const {pokemons, next, previous, count, isLoading} = this.state;
-        console.log(pokemons);
         // While load the data, show a loading message
         if(isLoading){
             return (
