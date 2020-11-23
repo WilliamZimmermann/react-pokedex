@@ -4,7 +4,7 @@ import PokemonList from './pages/PokemonList';
 function App() {
   return (
     <div className="App"> 
-          <PokemonList></PokemonList>
+        <PokemonList></PokemonList>
     </div>
   );
 }
