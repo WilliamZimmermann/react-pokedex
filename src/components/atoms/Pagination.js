@@ -4,13 +4,6 @@ import React from 'react';
 export default class Pagination extends React.Component{
     constructor(props){
         super(props);
-
-        this.state =  {
-            total: 0,
-            previousPage: "",
-            nextPage: "",
-            maxItemsPage: 0,
-        }
     }
 
     render(){
@@ -18,6 +11,7 @@ export default class Pagination extends React.Component{
             <div className="paginationContainer">
                 <nav aria-label="...">
                     <ul className="pagination">
+                        {this.props.e}
                         <li className="page-item disabled">
                             <span className="page-link">Previous</span>
                         </li>
@@ -40,3 +34,4 @@ export default class Pagination extends React.Component{
         );
     }
 }
+

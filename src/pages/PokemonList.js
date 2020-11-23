@@ -1,8 +1,13 @@
 import React from 'react';
 import Pagination from '../components/atoms/Pagination.js';
 import PokemonCard from '../components/atoms/PokemonCard.js';
+import { connect } from "react-redux";
 
-export default class PokemonList extends React.Component{
+class PokemonList extends React.Component{
+
+    // Define the max Pokemons per page to be show
+    maxItemsPage = 12;
+
 
     constructor(props){
         super(props);
@@ -22,7 +27,7 @@ export default class PokemonList extends React.Component{
     componentDidMount(){
         // Take all pokemons and paginate it
         try{
-            fetch('https://pokeapi.co/api/v2/pokemon?limit=12')
+            fetch('https://pokeapi.co/api/v2/pokemon?limit='+this.maxItemsPage)
                 .then(response => response.json())
                 .then(data => this.setState({
                     pokemons: data.results, 
@@ -38,7 +43,7 @@ export default class PokemonList extends React.Component{
     }
 
     render(){
-        const {pokemons, isLoading, count} = this.state;
+        const {pokemons, next, previous, count, isLoading} = this.state;
         
         // While load the data, show a loading message
         if(isLoading){
@@ -57,7 +62,12 @@ export default class PokemonList extends React.Component{
                         <small className="text-muted">Know more about <strong>{count}</strong> Pokémons and their habits</small>
                     </div>
                     <div className="row">
-                        <Pagination></Pagination>
+                        <Pagination
+                            total={count}
+                            previousPage={previous}
+                            next={next}
+                            maxItemsPage={this.maxItemsPage}
+                        ></Pagination>
                     </div>
                     <div className="row row-cols-1 row-cols-md-4">
                         {pokemons.map(pokemon => 
@@ -70,10 +80,21 @@ export default class PokemonList extends React.Component{
                         )}
                     </div>
                     <div className="row">
-                        <Pagination></Pagination>
+                        <Pagination
+                            total={count}
+                            previousPage={previous}
+                            next={next}
+                            maxItemsPage={this.maxItemsPage}
+                        ></Pagination>
                     </div>
                 </div>
             </div>
         );
     }
 }
+
+export default connect(
+    null,
+    {  }
+)(PokemonList);
+  
