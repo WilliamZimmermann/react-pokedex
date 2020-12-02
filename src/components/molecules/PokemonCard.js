@@ -25,10 +25,6 @@ export default class PokemonCard extends React.Component{
         }
     }
 
-    openPokemonCard(){
-        $('#pokemon-modal').modal(options);
-    }
-
     render(){
         const {pokemon, isLoading} = this.state;
 
