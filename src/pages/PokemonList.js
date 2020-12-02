@@ -1,12 +1,10 @@
 import React from 'react';
 import PokemonCard from '../components/molecules/PokemonCard.js';
-import { connect } from "react-redux";
 
-class PokemonList extends React.Component{
+export default class PokemonList extends React.Component{
 
     // Define the max Pokemons per page to be show
     maxItemsPage = 12;
-
 
     constructor(props){
         super(props);
@@ -15,7 +13,7 @@ class PokemonList extends React.Component{
             pokemons: [],
             next: '',
             previous: '',
-            count: 0,
+            count: 0, 
             isLoading: false,
         }
     }
@@ -107,9 +105,3 @@ class PokemonList extends React.Component{
         );
     }
 }
-
-export default connect(
-    null,
-    {  }
-)(PokemonList);
-  

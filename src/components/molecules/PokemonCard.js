@@ -25,6 +25,10 @@ export default class PokemonCard extends React.Component{
         }
     }
 
+    openPokemonCard(){
+        $('#pokemon-modal').modal(options);
+    }
+
     render(){
         const {pokemon, isLoading} = this.state;
 
@@ -65,7 +69,7 @@ export default class PokemonCard extends React.Component{
                         <li className="list-group-item" key={'experience-' + this.props.index}><strong>Experience:</strong> {pokemon.base_experience}</li>
                         <li className="list-group-item" key={'weight-' + this.props.index}><strong>Weight:</strong> {pokemon.height}</li>
                         <li className="list-group-item" key={'height-' + this.props.index}><strong>Height:</strong> {pokemon.weight}</li>
-                        <a href="#" className="btn btn-primary">Open Card</a>
+                        <button type="button" className="btn btn-primary">Open Card</button>
                     </ul>
                 </div>
             </div>
