@@ -83,7 +83,7 @@ export default class PokemonList extends React.Component{
                                 <PokemonCard
                                     index={index}
                                     name={pokemon.name}
-                                    pokemonApiUrl={pokemon.url}
+                                    showSeeMoreButton={true}
                                 ></PokemonCard>
                             </div>
                         )}

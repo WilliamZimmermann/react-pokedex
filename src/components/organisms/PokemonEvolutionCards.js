@@ -2,7 +2,7 @@ import React from 'react';
 import PokemonType from '../atoms/PokemonType';
 import { Link } from "react-router-dom";
 
-export default class PokemonCard extends React.Component{
+export default class PokemonEvolutionCards extends React.Component{
 
     constructor(props){
         super(props);
@@ -15,19 +15,14 @@ export default class PokemonCard extends React.Component{
 
     componentDidMount(){
         this.setState({ isLoading: true });
-        // Check if we are receiving pkemon data from other place
-        if(this.props.pokemonData){
-            this.setState({pokemon: this.props.pokemonData, isLoading: false});
-        }else{
-            // If not, Take pokemon name to do the API search and get data
-            try{
-                fetch("https://pokeapi.co/api/v2/pokemon/" + this.props.name)
-                    .then(response => response.json())
-                    .then(data => this.setState({pokemon: data, isLoading: false}));
-            }
-            catch(err){
-                console.error(err);
-            }
+        // Take pokemon ID to do the API search
+        try{
+            fetch(this.props.pokemonApiUrl)
+                .then(response => response.json())
+                .then(data => this.setState({pokemon: data, isLoading: false}));
+        }
+        catch(err){
+            console.error(err);
         }
     }
 
@@ -71,15 +66,11 @@ export default class PokemonCard extends React.Component{
                         <li className="list-group-item" key={'experience-' + this.props.index}><strong>Experience:</strong> {pokemon.base_experience}</li>
                         <li className="list-group-item" key={'weight-' + this.props.index}><strong>Weight:</strong> {pokemon.height}</li>
                         <li className="list-group-item" key={'height-' + this.props.index}><strong>Height:</strong> {pokemon.weight}</li>
-                        {this.props.showSeeMoreButton &&
-                            <Link to={{
-                                        pathname: `pokemon/` + pokemon.id,
-                                        state: { pokemonDetail: pokemon }
-                                    }} 
-                                className="btn btn-primary">
-                                See More
-                            </Link>
-                        }
+                        <Link to={{
+                                    pathname: `pokemon/` + pokemon.id,
+                                    state: { pokemonDetail: pokemon }
+                                }} 
+                            className="btn btn-primary" >See More</Link>
                     </ul>
                 </div>
             </div>
